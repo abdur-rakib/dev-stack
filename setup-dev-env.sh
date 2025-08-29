@@ -12,7 +12,7 @@ fi
 # Copy docker-compose.override.yml.example to docker-compose.override.yml if not exists
 echo "Copying docker-compose.override.yml.example to docker-compose.override.yml..."
 if [ -f docker-compose.override.yml.example ] && [ ! -f docker-compose.override.yml ]; then
-  cp docker-compose.override.yml.example docker-compose.override.yml
+  cp docker-compose.override.example.yml docker-compose.override.yml
 fi
 
 # Copy all service.example.env to service.env inside .envs folder
