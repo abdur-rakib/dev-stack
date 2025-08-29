@@ -27,4 +27,13 @@ for example in .envs/*.example.env; do
   fi
 done
 
+# Copy all service.example.conf to service.conf in config folders
+echo "Copying service.example.conf to service.conf in config folders..."
+for example_conf in config/*/*.example.conf; do
+  conf_file="${example_conf/.example.conf/.conf}"
+  if [ -f "$example_conf" ]; then
+    cp "$example_conf" "$conf_file"
+  fi
+done
+
 echo "Environment initialization complete."

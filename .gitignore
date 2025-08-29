@@ -1,11 +1,16 @@
 # Ignore everything inside data/service folders except .gitkeep
 data/*/*
 !data/*/.gitkeep
+
 # Ignore all env files except example templates
 .env
 .env.*
 .envs/*.env
 !*.example.env
+
+# Ignore all .conf files except .example.conf
+*.conf
+!*.example.conf
 
 # docker compose files 
 docker-compose.override.yml
