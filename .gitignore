@@ -1,7 +1,9 @@
 # Ignore all environment files
+# Ignore all environment files except examples
 .env*
 .envs/
 .envs/*.env*
+!.envs/*.example
 # Ignore Docker volumes and data
 /data/
 # Ignore logs
