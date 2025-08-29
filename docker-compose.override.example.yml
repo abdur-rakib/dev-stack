@@ -52,6 +52,7 @@ services:
       - .envs/elasticsearch.env
     environment:
       - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     ports:
       - "${ELASTICSEARCH_PORT}:9200"
     volumes:
@@ -66,7 +67,9 @@ services:
     ports:
       - "${KIBANA_PORT}:5601"
     environment:
-      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+      - ELASTICSEARCH_HOSTS="http://elasticsearch:9200"
+    NODE_OPTIONS: --max-old-space-size=256
+      - NODE_OPTIONS=--max-old-space-size=256
     depends_on:
       - elasticsearch
 
