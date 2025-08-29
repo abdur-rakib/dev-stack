@@ -3,7 +3,7 @@ services:
   redis:
     image: redis:${REDIS_VERSION}
     env_file:
-      - .envs/.env.redis.example
+      - .envs/redis.example.env
     ports:
       - "6379:6379"
     volumes:
@@ -12,7 +12,7 @@ services:
   rabbitmq:
     image: rabbitmq:${RABBITMQ_VERSION}-management
     env_file:
-      - .envs/.env.rabbitmq.example
+      - .envs/rabbitmq.example.env
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -22,7 +22,7 @@ services:
   mysql:
     image: mysql:${MYSQL_VERSION}
     env_file:
-      - .envs/.env.mysql.example
+      - .envs/mysql.example.env
     ports:
       - "3306:3306"
     volumes:
@@ -31,7 +31,7 @@ services:
   adminer:
     image: adminer:${ADMINER_VERSION}
     env_file:
-      - .envs/.env.adminer.example
+      - .envs/adminer.example.env
     ports:
       - "8080:8080"
     depends_on:
@@ -40,7 +40,7 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION}
     env_file:
-      - .envs/.env.elasticsearch.example
+      - .envs/elasticsearch.example.env
     environment:
       - discovery.type=single-node
     ports:
@@ -51,7 +51,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION}
     env_file:
-      - .envs/.env.kibana.example
+      - .envs/kibana.example.env
     ports:
       - "5601:5601"
     environment:
@@ -62,7 +62,7 @@ services:
   fluentd:
     image: fluent/fluentd:${FLUENTD_VERSION}
     env_file:
-      - .envs/.env.fluentd.example
+      - .envs/fluentd.example.env
     ports:
       - "24224:24224"
     volumes:
@@ -73,7 +73,7 @@ services:
   jenkins:
     image: jenkins/jenkins:${JENKINS_VERSION}
     env_file:
-      - .envs/.env.jenkins.example
+      - .envs/jenkins.example.env
     ports:
       - "8081:8080"
     volumes:
@@ -82,7 +82,7 @@ services:
   grafana:
     image: grafana/grafana:${GRAFANA_VERSION}
     env_file:
-      - .envs/.env.grafana.example
+      - .envs/grafana.example.env
     ports:
       - "3000:3000"
     volumes:
@@ -91,7 +91,7 @@ services:
   cassandra:
     image: cassandra:${CASSANDRA_VERSION}
     env_file:
-      - .envs/.env.cassandra.example
+      - .envs/cassandra.example.env
     ports:
       - "9042:9042"
     volumes:
@@ -100,7 +100,7 @@ services:
   minio:
     image: minio/minio:${MINIO_VERSION}
     env_file:
-      - .envs/.env.minio.example
+      - .envs/minio.example.env
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -111,7 +111,7 @@ services:
   sftp:
     image: atmoz/sftp:${SFTP_VERSION}
     env_file:
-      - .envs/.env.sftp.example
+      - .envs/sftp.example.env
     ports:
       - "22:22"
     environment:

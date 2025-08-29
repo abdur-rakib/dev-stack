@@ -4,9 +4,8 @@ data/*/*
 # Ignore all env files except example templates
 .env
 .env.*
-.envs/.env.*
-!.envs/.env.*.example
-!.env.example
+.envs/*.env
+!*.example.env
 
 # docker compose files 
 docker-compose.override.yml
