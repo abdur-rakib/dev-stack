@@ -1,17 +1,6 @@
-# Ignore all environment files
-# Ignore all environment files except examples
-.env*
-.envs/
-.envs/*.env*
-!.envs/*.example
-# Ignore Docker volumes and data
-/data/
-# Ignore logs
-*.log
-logs/
-# Ignore IDE/editor files
-.vscode/
-.idea/
-# Ignore system files
-.DS_Store
-Thumbs.db
+# Ignore all env files except example templates
+.env
+.env.*
+.envs/.env.*
+!.envs/.env.*.example
+!.env.example
