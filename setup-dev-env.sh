@@ -11,7 +11,7 @@ fi
 
 # Copy docker-compose.override.yml.example to docker-compose.override.yml if not exists
 echo "Copying docker-compose.override.yml.example to docker-compose.override.yml..."
-if [ -f docker-compose.override.yml.example ] && [ ! -f docker-compose.override.yml ]; then
+if [ -f docker-compose.override.example.yml ] && [ ! -f docker-compose.override.yml ]; then
   cp docker-compose.override.example.yml docker-compose.override.yml
 fi
 
