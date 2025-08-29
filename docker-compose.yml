@@ -1,0 +1,123 @@
+version: '3.8'
+services:
+  redis:
+      image: redis:${REDIS_VERSION}
+      env_file:
+        - .envs/.env.redis
+      ports:
+        - "6379:6379"
+      volumes:
+        - "${REDIS_DATA_VOLUME:-./data/redis}:/data"
+
+  rabbitmq:
+      image: rabbitmq:${RABBITMQ_VERSION}-management
+      env_file:
+        - .envs/.env.rabbitmq
+      ports:
+        - "5672:5672"
+        - "15672:15672"
+      volumes:
+        - "${RABBITMQ_DATA_VOLUME:-./data/rabbitmq}:/var/lib/rabbitmq"
+
+  mysql:
+      image: mysql:${MYSQL_VERSION}
+      env_file:
+        - .envs/.env.mysql
+      ports:
+        - "3306:3306"
+      volumes:
+        - "${MYSQL_DATA_VOLUME:-./data/mysql}:/var/lib/mysql"
+
+  adminer:
+      image: adminer:${ADMINER_VERSION}
+      env_file:
+        - .envs/.env.adminer
+      ports:
+        - "8080:8080"
+      depends_on:
+        - mysql
+
+  elasticsearch:
+      image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION}
+      env_file:
+        - .envs/.env.elasticsearch
+      environment:
+        - discovery.type=single-node
+      ports:
+        - "9200:9200"
+      volumes:
+        - "${ELASTICSEARCH_DATA_VOLUME:-./data/elasticsearch}:/usr/share/elasticsearch/data"
+
+  kibana:
+      image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION}
+      env_file:
+        - .envs/.env.kibana
+      ports:
+        - "5601:5601"
+      environment:
+        ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+      depends_on:
+        - elasticsearch
+
+  fluentd:
+      image: fluent/fluentd:${FLUENTD_VERSION}
+      env_file:
+        - .envs/.env.fluentd
+      ports:
+        - "24224:24224"
+      volumes:
+        - ./config/fluentd:/fluentd/etc
+      depends_on:
+        - elasticsearch
+
+  jenkins:
+      image: jenkins/jenkins:${JENKINS_VERSION}
+      env_file:
+        - .envs/.env.jenkins
+      ports:
+        - "8081:8080"
+      volumes:
+        - "${JENKINS_DATA_VOLUME:-./data/jenkins}:/var/jenkins_home"
+
+  grafana:
+      image: grafana/grafana:${GRAFANA_VERSION}
+      env_file:
+        - .envs/.env.grafana
+      ports:
+        - "3000:3000"
+      volumes:
+        - "${GRAFANA_DATA_VOLUME:-./data/grafana}:/var/lib/grafana"
+
+  cassandra:
+      image: cassandra:${CASSANDRA_VERSION}
+      env_file:
+        - .envs/.env.cassandra
+      ports:
+        - "9042:9042"
+      volumes:
+        - "${CASSANDRA_DATA_VOLUME:-./data/cassandra}:/var/lib/cassandra"
+
+  minio:
+      image: minio/minio:${MINIO_VERSION}
+      env_file:
+        - .envs/.env.minio
+      ports:
+        - "9000:9000"
+        - "9001:9001"
+      command: server /data --console-address ":9001"
+      volumes:
+        - "${MINIO_DATA_VOLUME:-./data/minio}:/data"
+
+  sftp:
+      image: atmoz/sftp:${SFTP_VERSION}
+      env_file:
+        - .envs/.env.sftp
+      ports:
+        - "22:22"
+      environment:
+        SFTP_USERS: "${SFTP_USER}:${SFTP_PASS}:1001"
+      volumes:
+        - "${SFTP_DATA_VOLUME:-./data/sftp}:/home/${SFTP_USER}/upload"
+
+volumes:
+  # Named volumes can be added if needed

@@ -1,0 +1,15 @@
+# Ignore all environment files
+.env*
+.envs/
+.envs/*.env*
+# Ignore Docker volumes and data
+/data/
+# Ignore logs
+*.log
+logs/
+# Ignore IDE/editor files
+.vscode/
+.idea/
+# Ignore system files
+.DS_Store
+Thumbs.db
