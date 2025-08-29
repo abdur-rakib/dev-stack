@@ -1,6 +1,22 @@
+# Ignore everything inside data/service folders except .gitkeep
+data/*/*
+!data/*/.gitkeep
 # Ignore all env files except example templates
 .env
 .env.*
 .envs/.env.*
 !.envs/.env.*.example
 !.env.example
+# OS and editor files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+__pycache__/
+*.log
+logs/
