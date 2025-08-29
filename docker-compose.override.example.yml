@@ -1,5 +1,6 @@
 services:
   redis:
+    platform: linux/amd64
     container_name: redis
     image: redis:${REDIS_VERSION}
     env_file:
@@ -10,6 +11,7 @@ services:
       - "${REDIS_DATA_HOST}:/data"
 
   rabbitmq:
+    platform: linux/amd64
     container_name: rabbitmq
     image: rabbitmq:${RABBITMQ_VERSION}-management
     env_file:
@@ -21,6 +23,7 @@ services:
       - "${RABBITMQ_DATA_HOST}:/var/lib/rabbitmq"
 
   mysql:
+    platform: linux/amd64
     container_name: mysql
     image: mysql:${MYSQL_VERSION}
     env_file:
@@ -31,6 +34,7 @@ services:
       - "${MYSQL_DATA_HOST}:/var/lib/mysql"
 
   adminer:
+    platform: linux/amd64
     container_name: adminer
     image: adminer:${ADMINER_VERSION}
     env_file:
@@ -41,6 +45,7 @@ services:
       - mysql
 
   elasticsearch:
+    platform: linux/amd64
     container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION}
     env_file:
@@ -53,6 +58,7 @@ services:
       - "${ELASTICSEARCH_DATA_HOST}:/usr/share/elasticsearch/data"
 
   kibana:
+    platform: linux/amd64
     container_name: kibana
     image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION}
     env_file:
@@ -65,6 +71,7 @@ services:
       - elasticsearch
 
   fluentd:
+    platform: linux/amd64
     container_name: fluentd
     image: fluent/fluentd:${FLUENTD_VERSION}
     env_file:
@@ -77,6 +84,7 @@ services:
       - elasticsearch
 
   jenkins:
+    platform: linux/amd64
     container_name: jenkins
     image: jenkins/jenkins:${JENKINS_VERSION}
     env_file:
@@ -87,6 +95,7 @@ services:
       - "${JENKINS_DATA_HOST}:/var/jenkins_home"
 
   grafana:
+    platform: linux/amd64
     container_name: grafana
     image: grafana/grafana:${GRAFANA_VERSION}
     env_file:
@@ -97,6 +106,7 @@ services:
       - "${GRAFANA_DATA_HOST}:/var/lib/grafana"
 
   cassandra:
+    platform: linux/amd64
     container_name: cassandra
     image: cassandra:${CASSANDRA_VERSION}
     env_file:
@@ -107,6 +117,7 @@ services:
       - "${CASSANDRA_DATA_HOST}:/var/lib/cassandra"
 
   minio:
+    platform: linux/amd64
     container_name: minio
     image: minio/minio:${MINIO_VERSION}
     env_file:
@@ -119,6 +130,7 @@ services:
       - "${MINIO_DATA_HOST}:/data"
 
   sftp:
+    platform: linux/amd64
     container_name: sftp
     image: atmoz/sftp:${SFTP_VERSION}
     env_file:
