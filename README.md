@@ -25,7 +25,7 @@ This repository provides a professional, multi-service development stack using D
 
 1. **Clone the repository:**
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/abdur-rakib/dev-stack.git
    cd dev-stack
    ```
 2. **Initialize environment:**
