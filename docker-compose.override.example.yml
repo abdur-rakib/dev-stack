@@ -135,7 +135,9 @@ services:
     image: atmoz/sftp:${SFTP_VERSION}
     env_file:
       - .envs/sftp.env
+    environment:
+      - SFTP_USERS=${SFTP_USERS}
     ports:
       - "${SFTP_PORT}:22"
     volumes:
-      - "${SFTP_DATA_HOST}:/home/your_sftp_user/upload"
+      - "${SFTP_DATA_HOST}:/home/user/upload"
