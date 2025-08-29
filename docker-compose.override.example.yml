@@ -7,7 +7,7 @@ services:
     ports:
       - "${REDIS_PORT}:6379"
     volumes:
-      - "${REDIS_DATA_VOLUME}"
+      - "${REDIS_DATA_HOST}:/data"
 
   rabbitmq:
     container_name: rabbitmq
@@ -18,7 +18,7 @@ services:
       - "${RABBITMQ_PORT}:5672"
       - "${RABBITMQ_MANAGEMENT_PORT}:15672"
     volumes:
-      - "${RABBITMQ_DATA_VOLUME}"
+      - "${RABBITMQ_DATA_HOST}:/var/lib/rabbitmq"
 
   mysql:
     container_name: mysql
@@ -28,7 +28,7 @@ services:
     ports:
       - "${MYSQL_PORT}:3306"
     volumes:
-      - "${MYSQL_DATA_VOLUME}"
+      - "${MYSQL_DATA_HOST}:/var/lib/mysql"
 
   adminer:
     container_name: adminer
@@ -50,7 +50,7 @@ services:
     ports:
       - "${ELASTICSEARCH_PORT}:9200"
     volumes:
-      - "${ELASTICSEARCH_DATA_VOLUME}"
+      - "${ELASTICSEARCH_DATA_HOST}:/usr/share/elasticsearch/data"
 
   kibana:
     container_name: kibana
@@ -72,7 +72,7 @@ services:
     ports:
       - "${FLUENTD_PORT}:24224"
     volumes:
-      - "${FLUENTD_DATA_VOLUME}"
+      - "${FLUENTD_DATA_HOST}:/fluentd/etc"
     depends_on:
       - elasticsearch
 
@@ -84,7 +84,7 @@ services:
     ports:
       - "${JENKINS_PORT}:8080"
     volumes:
-      - "${JENKINS_DATA_VOLUME}"
+      - "${JENKINS_DATA_HOST}:/var/jenkins_home"
 
   grafana:
     container_name: grafana
@@ -94,7 +94,7 @@ services:
     ports:
       - "${GRAFANA_PORT}:3000"
     volumes:
-      - "${GRAFANA_DATA_VOLUME}"
+      - "${GRAFANA_DATA_HOST}:/var/lib/grafana"
 
   cassandra:
     container_name: cassandra
@@ -104,7 +104,7 @@ services:
     ports:
       - "${CASSANDRA_PORT}:9042"
     volumes:
-      - "${CASSANDRA_DATA_VOLUME}"
+      - "${CASSANDRA_DATA_HOST}:/var/lib/cassandra"
 
   minio:
     container_name: minio
@@ -116,7 +116,7 @@ services:
       - "${MINIO_CONSOLE_PORT}:9001"
     command: server /data --console-address ":9001"
     volumes:
-      - "${MINIO_DATA_VOLUME}"
+      - "${MINIO_DATA_HOST}:/data"
 
   sftp:
     container_name: sftp
@@ -126,4 +126,4 @@ services:
     ports:
       - "${SFTP_PORT}:22"
     volumes:
-      - "${SFTP_DATA_VOLUME}"
+      - "${SFTP_DATA_HOST}:/home/your_sftp_user/upload"
