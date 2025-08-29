@@ -3,57 +3,57 @@ services:
   redis:
     image: redis:${REDIS_VERSION}
     env_file:
-      - .envs/redis.example.env
+      - .envs/redis.env
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:6379"
     volumes:
-      - "./data/redis:/data"
+      - "${REDIS_DATA_VOLUME}"
 
   rabbitmq:
     image: rabbitmq:${RABBITMQ_VERSION}-management
     env_file:
-      - .envs/rabbitmq.example.env
+      - .envs/rabbitmq.env
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "${RABBITMQ_PORT}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT}:15672"
     volumes:
-      - "./data/rabbitmq:/var/lib/rabbitmq"
+      - "${RABBITMQ_DATA_VOLUME}"
 
   mysql:
     image: mysql:${MYSQL_VERSION}
     env_file:
-      - .envs/mysql.example.env
+      - .envs/mysql.env
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT}:3306"
     volumes:
-      - "./data/mysql:/var/lib/mysql"
+      - "${MYSQL_DATA_VOLUME}"
 
   adminer:
     image: adminer:${ADMINER_VERSION}
     env_file:
-      - .envs/adminer.example.env
+      - .envs/adminer.env
     ports:
-      - "8080:8080"
+      - "${ADMINER_PORT}:8080"
     depends_on:
       - mysql
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION}
     env_file:
-      - .envs/elasticsearch.example.env
+      - .envs/elasticsearch.env
     environment:
       - discovery.type=single-node
     ports:
-      - "9200:9200"
+      - "${ELASTICSEARCH_PORT}:9200"
     volumes:
-      - "./data/elasticsearch:/usr/share/elasticsearch/data"
+      - "${ELASTICSEARCH_DATA_VOLUME}"
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION}
     env_file:
-      - .envs/kibana.example.env
+      - .envs/kibana.env
     ports:
-      - "5601:5601"
+      - "${KIBANA_PORT}:5601"
     environment:
       ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
     depends_on:
@@ -62,63 +62,57 @@ services:
   fluentd:
     image: fluent/fluentd:${FLUENTD_VERSION}
     env_file:
-      - .envs/fluentd.example.env
+      - .envs/fluentd.env
     ports:
-      - "24224:24224"
+      - "${FLUENTD_PORT}:24224"
     volumes:
-      - ./config/fluentd:/fluentd/etc
+      - "${FLUENTD_DATA_VOLUME}"
     depends_on:
       - elasticsearch
 
   jenkins:
     image: jenkins/jenkins:${JENKINS_VERSION}
     env_file:
-      - .envs/jenkins.example.env
+      - .envs/jenkins.env
     ports:
-      - "8081:8080"
+      - "${JENKINS_PORT}:8080"
     volumes:
-      - "./data/jenkins:/var/jenkins_home"
+      - "${JENKINS_DATA_VOLUME}"
 
   grafana:
     image: grafana/grafana:${GRAFANA_VERSION}
     env_file:
-      - .envs/grafana.example.env
+      - .envs/grafana.env
     ports:
-      - "3000:3000"
+      - "${GRAFANA_PORT}:3000"
     volumes:
-      - "./data/grafana:/var/lib/grafana"
+      - "${GRAFANA_DATA_VOLUME}"
 
   cassandra:
     image: cassandra:${CASSANDRA_VERSION}
     env_file:
-      - .envs/cassandra.example.env
+      - .envs/cassandra.env
     ports:
-      - "9042:9042"
+      - "${CASSANDRA_PORT}:9042"
     volumes:
-      - "./data/cassandra:/var/lib/cassandra"
+      - "${CASSANDRA_DATA_VOLUME}"
 
   minio:
     image: minio/minio:${MINIO_VERSION}
     env_file:
-      - .envs/minio.example.env
+      - .envs/minio.env
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "${MINIO_PORT}:9000"
+      - "${MINIO_CONSOLE_PORT}:9001"
     command: server /data --console-address ":9001"
     volumes:
-      - "./data/minio:/data"
+      - "${MINIO_DATA_VOLUME}"
 
   sftp:
     image: atmoz/sftp:${SFTP_VERSION}
     env_file:
-      - .envs/sftp.example.env
+      - .envs/sftp.env
     ports:
-      - "22:22"
-    environment:
-      SFTP_USERS: "your_sftp_user:your_sftp_password:1001"
+      - "${SFTP_PORT}:22"
     volumes:
-      - "./data/sftp:/home/your_sftp_user/upload"
-
-networks:
-  devnet:
-    external: false
+      - "${SFTP_DATA_VOLUME}"
