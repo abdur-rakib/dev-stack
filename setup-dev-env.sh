@@ -12,29 +12,32 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 
-# Always replace .env with .env.example if both exist
+
+# Always copy .env.example to .env if .env.example exists
 echo -e "${BLUE}==============================="
 echo -e "   Dev Stack Setup Script"
 echo -e "===============================${NC}"
-echo -e "${YELLOW}Replacing .env with .env.example if both exist...${NC}"
-if [ -f .env.example ] && [ -f .env ]; then
-  cp .env.example .env
+echo -e "${YELLOW}Copying .env.example to .env if .env.example exists...${NC}"
+if [ -f .env.example ]; then
+  cp -f .env.example .env
 fi
 
 
-# Always replace docker-compose.override.yml with example if both exist
-echo -e "${YELLOW}Replacing docker-compose.override.yml with example if both exist...${NC}"
-if [ -f docker-compose.override.example.yml ] && [ -f docker-compose.override.yml ]; then
-  cp docker-compose.override.example.yml docker-compose.override.yml
+
+# Always copy docker-compose.override.example.yml to docker-compose.override.yml if example exists
+echo -e "${YELLOW}Copying docker-compose.override.example.yml to docker-compose.override.yml if example exists...${NC}"
+if [ -f docker-compose.override.example.yml ]; then
+  cp -f docker-compose.override.example.yml docker-compose.override.yml
 fi
 
 
-# Always replace service.env with service.example.env if both exist
-echo -e "${YELLOW}Replacing service.env with service.example.env in .envs...${NC}"
+
+# Always copy service.example.env to service.env in .envs if example exists
+echo -e "${YELLOW}Copying service.example.env to service.env in .envs if example exists...${NC}"
 for example in .envs/*.example.env; do
   service_env="${example/.example.env/.env}"
-  if [ -f "$example" ] && [ -f "$service_env" ]; then
-    cp "$example" "$service_env"
+  if [ -f "$example" ]; then
+    cp -f "$example" "$service_env"
   fi
 done
 
