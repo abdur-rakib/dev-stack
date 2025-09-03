@@ -39,10 +39,14 @@ echo -e "${GREEN}4)${NC} Stop a single container"
 echo -e "${GREEN}5)${NC} Stop and remove all containers"
 echo -e "${GREEN}6)${NC} Stop and remove a single container"
 echo -e "${GREEN}7)${NC} Remove unused images"
+echo -e "${GREEN}8)${NC} Run Redis, MySQL, Cassandra, Adminer, RabbitMQ only"
 echo -e "${BLUE}-------------------------------${NC}"
-read -p "Enter your choice [1-7]: " choice
+read -p "Enter your choice [1-8]: " choice
 
 case $choice in
+  8)
+    run_services redis mysql cassandra adminer rabbitmq
+    ;;
   1)
     run_services "${all_services[@]}"
     ;;
@@ -93,7 +97,7 @@ case $choice in
   docker image prune -f
     ;;
   *)
-  echo -e "${RED}Invalid choice.${NC}"
-  exit 1
+    echo -e "${RED}Invalid choice.${NC}"
+    exit 1
     ;;
 esac
